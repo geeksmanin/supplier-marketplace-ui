@@ -156,7 +156,7 @@ export const App: React.FC = () => {
             );
           })}
 
-          <Route path="*" element={<Navigate to="/home" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </HashRouter>
       <Overlays
