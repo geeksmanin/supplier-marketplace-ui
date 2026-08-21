@@ -82,4 +82,23 @@ export function registerMarketplaceModule() {
     section: 'extended',
     parentId: 'marketplace-portal'
   });
+
+  // Register Global Search Items
+  UIRegistry.registerSearchItem({
+    id: 'marketplace-browse-search',
+    title: 'Supplier Marketplace',
+    description: 'Browse supplier products, categories, and compare prices',
+    category: 'Marketplace',
+    keywords: ['marketplace', 'suppliers', 'browse', 'products', 'compare', 'procurement', 'vendor'],
+    action: (navigate: any) => navigate('/')
+  });
+
+  UIRegistry.registerSearchItem({
+    id: 'marketplace-cart-search',
+    title: 'Marketplace Cart',
+    description: 'View selected supplier items in cart',
+    category: 'Marketplace',
+    keywords: ['cart', 'basket', 'checkout', 'orders'],
+    action: (navigate: any) => navigate('/cart')
+  });
 }
