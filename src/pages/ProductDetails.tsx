@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { apiClient, Button, useToast } from '@geeksman/core-ui';
+import { apiClient, Button, useToast, Select } from '@geeksman/core-ui';
 
 interface Variant {
   id: number;
@@ -118,21 +118,21 @@ export function ProductDetails() {
 
             <div className="flex flex-col gap-2 max-w-[480px]">
               <label className="text-xs font-semibold text-slate-400">Variant Option</label>
-              <select
-                className="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
-                value={selectedVariantIdx}
-                onChange={(e) => {
-                  setSelectedVariantIdx(Number(e.target.value));
-                  const newVar = product.variants[Number(e.target.value)];
-                  setQty(newVar.min_order_qty);
+              <Select
+                value={String(selectedVariantIdx)}
+                onChange={(val) => {
+                  const idx = Number(val);
+                  setSelectedVariantIdx(idx);
+                  const newVar = product.variants[idx];
+                  if (newVar) {
+                    setQty(newVar.min_order_qty);
+                  }
                 }}
-              >
-                {product.variants.map((v, index) => (
-                  <option key={v.id} value={index}>
-                    {v.name} - ${v.price.toFixed(2)} (SKU: {v.sku_code})
-                  </option>
-                ))}
-              </select>
+                options={product.variants.map((v, index) => ({
+                  value: String(index),
+                  label: `${v.name} - $${v.price.toFixed(2)} (SKU: ${v.sku_code})`
+                }))}
+              />
             </div>
 
             {selectedVariant && (
