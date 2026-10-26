@@ -18,11 +18,11 @@ import {
   Ticket,
   Bell,
   Home,
-  Award
+  Award,
 } from 'lucide-react';
 import BottomNav from './BottomNav/BottomNav';
 import { useMediaQuery, AboutApp, apiClient, useToast } from '@geeksman/core-ui';
-import { getAppConfig } from '../config';
+import { useAppConfig } from '../config';
 import {
   NotificationProvider,
   NotificationDrawer,
@@ -784,10 +784,10 @@ const CustomerLayoutInner: React.FC<{ children: React.ReactNode }> = ({ children
 
 // ─── outer component: resolves auth credentials and mounts provider ──────────
 export const CustomerLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const config = getAppConfig();
+  const { config, tenantCode: activeTenantCode } = useAppConfig();
 
   const [userId, setUserId] = useState('');
-  const [tenantCode, setTenantCode] = useState(config.defaultTenant ?? 'platform');
+  const [tenantCode, setTenantCode] = useState(activeTenantCode);
   const [token, setToken] = useState<string | undefined>(undefined);
 
   useEffect(() => {
